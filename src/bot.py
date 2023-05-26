@@ -37,7 +37,7 @@ def find_place(query: Sequence[str], article: str) -> str:
     find_thread = pool.apply_async(func=parser.execute)
     position = find_thread.get()
     message = md.text(
-        md.text(f"Това с артикулом {md.hstrikethrough(article)} не найден. {md.hbold('Возможные причины:')}\n"),
+        md.text(f"Товар с артикулом {md.hstrikethrough(article)} не найден. {md.hbold('Возможные причины:')}\n"),
         md.text("1) Введен несуществующий артикул"),
         md.text(f"2) Товар находится слишком далеко в поисковой выборке ({parser.LIMIT}+ страниц)"),
         sep='\n'
@@ -46,7 +46,7 @@ def find_place(query: Sequence[str], article: str) -> str:
         if pos is not None:
             block, page = pos
             message = md.text(
-                md.text(f"Това с артикулом {article} найден. Его положение:\n"),
+                md.text(f"Товар с артикулом {article} найден. Его положение:\n"),
                 md.text(f"Место: {md.hbold(block)}"),
                 md.text(f"Страница: {md.hbold(page)}"),
                 sep='\n'
