@@ -1,0 +1,5 @@
+.env
+.idea
+__pycache__
+venv
+data/wb.log
