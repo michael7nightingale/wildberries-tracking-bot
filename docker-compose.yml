@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  bot:
+    environment:
+      - DOCKER=1
+    build:
+      context: ./services/bot/
+    command: >
+      sh -c "python main.py"
+    networks:
+      - default
+    
+  backend:
+    environment:
+      - DOCKER=1
+    build:
+      context: ./services/backend/
+    command: >
+      sh -c "uvicorn app:create_app --host 0.0.0.0 --port 8000"
+    ports:
+      - "8000:8000"
+    networks:
+      - default
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=wb
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+    networks:
+      - default
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - default
+  
+  celery:
+    environment:
+      - DOCKER=1
+    build:
+      context: ./services/backend/
+    command: >
+      sh -c "celery -A worker:app worker -l info"
+    networks:
+      - default
+    
+    
+networks:
+  default: {}
