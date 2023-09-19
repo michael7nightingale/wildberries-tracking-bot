@@ -28,9 +28,7 @@ numpy==1.24.3
 outcome==1.2.0
 pandas==2.0.1
 pycparser==2.21
-pydantic==2.3.0
-pydantic-settings==2.0.3
-pydantic_core==2.6.3
+pydantic==1.10.12
 pyee==8.2.2
 Pygments==2.15.1
 PySocks==1.7.1

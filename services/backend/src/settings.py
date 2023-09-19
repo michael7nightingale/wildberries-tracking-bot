@@ -1,4 +1,5 @@
 from pydantic import BaseSettings
+import os
 
 
 class Settings(BaseSettings):
@@ -19,7 +20,10 @@ class Settings(BaseSettings):
     CELERY_BROKER_URL: str
 
     class Config:
-        env_file = "../.env"
+        if os.getenv("DOCKER"):
+            env_file = "../docker.env"
+        else:
+            env_file = "../dev.env"
 
 
 def get_settings() -> Settings:
